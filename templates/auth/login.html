@@ -1,0 +1,417 @@
+
+{% load static %}
+
+<title>Police Login - Secure Access</title>
+
+<style>
+    /* Login Page Styles */
+    body {
+        background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+        min-height: 100vh;
+        font-family: 'Roboto', sans-serif;
+        margin: 0;
+        padding: 0;
+    }
+
+    .login-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        padding: 20px;
+        position: relative;
+    }
+
+    .login-container::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="police-badge" patternUnits="userSpaceOnUse" width="100" height="100"><circle cx="50" cy="50" r="2" fill="rgba(255,255,255,0.05)"/></pattern></defs><rect width="100" height="100" fill="url(%23police-badge)"/></svg>') repeat;
+        opacity: 0.3;
+    }
+
+    .login-card {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        border-radius: 20px;
+        box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+        padding: 50px;
+        width: 100%;
+        max-width: 450px;
+        position: relative;
+        z-index: 1;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .login-header {
+        text-align: center;
+        margin-bottom: 40px;
+    }
+
+    .badge-icon {
+        width: 80px;
+        height: 80px;
+        background: linear-gradient(45deg, #2c5aa0, #1e3a8a);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 20px;
+        box-shadow: 0 10px 30px rgba(44, 90, 160, 0.3);
+        position: relative;
+    }
+
+    .badge-icon::before {
+        content: '🛡️';
+        font-size: 35px;
+        color: white;
+    }
+
+    .badge-icon::after {
+        content: '';
+        position: absolute;
+        top: -5px;
+        left: -5px;
+        right: -5px;
+        bottom: -5px;
+        border: 2px solid rgba(44, 90, 160, 0.3);
+        border-radius: 50%;
+        animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+        0% { transform: scale(1); opacity: 1; }
+        50% { transform: scale(1.1); opacity: 0.7; }
+        100% { transform: scale(1); opacity: 1; }
+    }
+
+    .login-title {
+        color: #1a1a2e;
+        font-size: 28px;
+        font-weight: 700;
+        margin: 0 0 10px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .login-subtitle {
+        color: #666;
+        font-size: 16px;
+        margin: 0 0 30px;
+        font-weight: 400;
+    }
+
+    .form-group {
+        margin-bottom: 25px;
+        position: relative;
+    }
+
+    .form-label {
+        display: block;
+        color: #333;
+        font-weight: 600;
+        margin-bottom: 8px;
+        font-size: 14px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .form-input {
+        width: 100%;
+        padding: 15px 20px;
+        border: 2px solid #e1e5e9;
+        border-radius: 10px;
+        font-size: 16px;
+        transition: all 0.3s ease;
+        background: #f8f9fa;
+        box-sizing: border-box;
+    }
+
+    .form-input:focus {
+        outline: none;
+        border-color: #2c5aa0;
+        background: white;
+        box-shadow: 0 0 0 3px rgba(44, 90, 160, 0.1);
+        transform: translateY(-2px);
+    }
+
+    .form-input::placeholder {
+        color: #999;
+        font-style: italic;
+    }
+
+    .checkbox-group {
+        display: flex;
+        align-items: center;
+        margin-bottom: 30px;
+    }
+
+    .checkbox-input {
+        margin-right: 10px;
+        transform: scale(1.2);
+        accent-color: #2c5aa0;
+    }
+
+    .checkbox-label {
+        color: #555;
+        font-size: 14px;
+        cursor: pointer;
+        user-select: none;
+    }
+
+    .login-button {
+        width: 100%;
+        padding: 16px;
+        background: linear-gradient(45deg, #2c5aa0, #1e3a8a);
+        color: white;
+        border: none;
+        border-radius: 10px;
+        font-size: 16px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 10px 30px rgba(44, 90, 160, 0.3);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .login-button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 15px 40px rgba(44, 90, 160, 0.4);
+    }
+
+    .login-button:active {
+        transform: translateY(0);
+    }
+
+    .login-button::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+        transition: left 0.5s;
+    }
+
+    .login-button:hover::before {
+        left: 100%;
+    }
+
+    .alert {
+        padding: 15px 20px;
+        border-radius: 10px;
+        margin-bottom: 25px;
+        border: none;
+        font-weight: 500;
+    }
+
+    .alert-error {
+        background: linear-gradient(45deg, #dc3545, #c82333);
+        color: white;
+        box-shadow: 0 5px 15px rgba(220, 53, 69, 0.3);
+    }
+
+    .alert-success {
+        background: linear-gradient(45deg, #28a745, #218838);
+        color: white;
+        box-shadow: 0 5px 15px rgba(40, 167, 69, 0.3);
+    }
+
+    .login-footer {
+        text-align: center;
+        margin-top: 30px;
+        padding-top: 20px;
+        border-top: 1px solid #e1e5e9;
+    }
+
+    .footer-text {
+        color: #666;
+        font-size: 12px;
+        margin: 0;
+    }
+
+    .security-notice {
+        background: rgba(255, 193, 7, 0.1);
+        border: 1px solid rgba(255, 193, 7, 0.3);
+        border-radius: 8px;
+        padding: 12px;
+        margin-top: 20px;
+        text-align: center;
+    }
+
+    .security-notice-text {
+        color: #856404;
+        font-size: 12px;
+        margin: 0;
+        font-weight: 500;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+        .login-card {
+            padding: 30px 25px;
+            margin: 20px;
+        }
+        
+        .login-title {
+            font-size: 24px;
+        }
+        
+        .badge-icon {
+            width: 70px;
+            height: 70px;
+        }
+        
+        .badge-icon::before {
+            font-size: 30px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .login-container {
+            padding: 10px;
+        }
+        
+        .login-card {
+            padding: 25px 20px;
+        }
+        
+        .login-title {
+            font-size: 22px;
+        }
+    }
+
+    /* Loading Animation */
+    .loading {
+        opacity: 0.7;
+        pointer-events: none;
+    }
+
+    .loading .login-button {
+        background: #ccc;
+    }
+
+    .loading .login-button::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 20px;
+        height: 20px;
+        margin: -10px 0 0 -10px;
+        border: 2px solid #fff;
+        border-radius: 50%;
+        border-top-color: transparent;
+        animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+        to { transform: rotate(360deg); }
+    }
+</style>
+
+<div class="login-container">
+    <div class="login-card">
+        <div class="login-header">
+            <div class="badge-icon"></div>
+            <h1 class="login-title">Police Portal</h1>
+            <p class="login-subtitle">Secure Law Enforcement Access</p>
+        </div>
+
+        <!-- Display Messages -->
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+
+        <form method="post" id="loginForm">
+            {% csrf_token %}
+            
+            <div class="form-group">
+                <label for="username" class="form-label">Badge Number / Username</label>
+                <input 
+                    type="text" 
+                    id="username" 
+                    name="username" 
+                    class="form-input"
+                    placeholder="Enter your badge number"
+                    required
+                    autocomplete="username"
+                    autofocus
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="password" class="form-label">Password</label>
+                <input 
+                    type="password" 
+                    id="password" 
+                    name="password" 
+                    class="form-input"
+                    placeholder="Enter your password"
+                    required
+                    autocomplete="current-password"
+                >
+            </div>
+
+            <div class="checkbox-group">
+                <input 
+                    type="checkbox" 
+                    id="remember_me" 
+                    name="remember_me" 
+                    class="checkbox-input"
+                    value="1"
+                >
+                <label for="remember_me" class="checkbox-label">
+                    Keep me signed in (2 weeks)
+                </label>
+            </div>
+
+            <button type="submit" class="login-button">
+                Secure Login
+            </button>
+        </form>
+
+        <div class="security-notice">
+            <p class="security-notice-text">
+                🔒 This system is for authorized law enforcement personnel only. 
+                All activities are monitored and logged.
+            </p>
+        </div>
+
+        <div class="login-footer">
+            <p class="footer-text">
+                © 2024 Police Management System | Secure & Confidential
+            </p>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('loginForm');
+    const loginCard = document.querySelector('.login-card');
+    
+    form.addEventListener('submit', function() {
+        loginCard.classList.add('loading');
+    });
+    
+    // Auto-focus on username field
+    document.getElementById('username').focus();
+    
+    // Clear form on page load if needed
+    if (window.location.search.includes('logout=1')) {
+        form.reset();
+    }
+});
+</script>
