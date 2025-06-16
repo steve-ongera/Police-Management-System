@@ -296,3 +296,84 @@ def officer_list(request):
         'officers': page_obj,
     }
     return render(request, 'officers/officers_list.html', context)
+# views.py
+
+
+
+# views.py
+from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib.auth.decorators import login_required
+from django.http import Http404
+from django.contrib import messages
+from .models import User
+from datetime import date
+
+@login_required
+def officer_detail_view(request, officer_id):
+    """
+    Display detailed information about a specific officer.
+    Simplified with minimal restrictions.
+    """
+    try:
+        # Get the officer by ID - removed role restrictions
+        officer = get_object_or_404(User, id=officer_id)
+        
+        # Calculate years of service
+        years_of_service = None
+        if officer.date_joined_force:
+            today = date.today()
+            years_of_service = today.year - officer.date_joined_force.year
+            if today.month < officer.date_joined_force.month or \
+               (today.month == officer.date_joined_force.month and today.day < officer.date_joined_force.day):
+                years_of_service -= 1
+        
+        # Prepare context data - removed permission checks
+        context = {
+            'officer': officer,
+            'years_of_service': years_of_service,
+            'page_title': f"Officer Details - {officer.get_full_name}",
+        }
+        
+        return render(request, 'officers/officer_detail.html', context)
+        
+    except Http404:
+        messages.error(request, "Officer not found.")
+        return redirect('officers:officer_list')  # or wherever your officer list is
+    except Exception as e:
+        messages.error(request, f"An error occurred while retrieving officer details: {str(e)}")
+        return redirect('officers:officer_list')  # or wherever your officer list is
+
+
+# Alternative Class-Based View (simplified)
+from django.views.generic import DetailView
+from django.contrib.auth.mixins import LoginRequiredMixin
+
+class OfficerDetailView(LoginRequiredMixin, DetailView):
+    """
+    Simplified class-based view for officer details.
+    """
+    model = User
+    template_name = 'officers/officer_detail.html'
+    context_object_name = 'officer'
+    pk_url_kwarg = 'officer_id'
+    
+    def get_context_data(self, **kwargs):
+        """Add additional context data."""
+        context = super().get_context_data(**kwargs)
+        officer = self.get_object()
+        
+        # Calculate years of service
+        years_of_service = None
+        if officer.date_joined_force:
+            today = date.today()
+            years_of_service = today.year - officer.date_joined_force.year
+            if today.month < officer.date_joined_force.month or \
+               (today.month == officer.date_joined_force.month and today.day < officer.date_joined_force.day):
+                years_of_service -= 1
+        
+        context.update({
+            'years_of_service': years_of_service,
+            'page_title': f"Officer Details - {officer.get_full_name}",
+        })
+        
+        return context

@@ -12,6 +12,6 @@ urlpatterns = [
     path('dashboard/', views.dashboard_view, name='dashboard'),
     path('dashboard/api/', views.dashboard_api, name='dashboard_api'),
     path('officers/', views.officer_list , name="officers"),
-
+    path('officer/<int:officer_id>/', views.officer_detail_view, name='officer_detail'),
 
 ]
