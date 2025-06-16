@@ -1,7 +1,11 @@
-
 {% load static %}
 
-<title>Police Login - Secure Access</title>
+<title>Police Login - Secure Access | Law Enforcement Portal</title>
+<meta name="description" content="Secure police officer login portal for law enforcement personnel. Access police management system, case files, incident reports, and departmental resources.">
+<meta name="keywords" content="police login, law enforcement portal, officer access, police management system, secure login, badge authentication, police department, incident management, case files, law enforcement security">
+
+<!-- Bootstrap Icons CDN -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css" rel="stylesheet">
 
 <style>
     /* Login Page Styles */
@@ -143,6 +147,45 @@
         font-style: italic;
     }
 
+    /* Password Toggle Styles */
+    .password-input-wrapper {
+        position: relative;
+    }
+
+    .password-input-wrapper .form-input {
+        padding-right: 50px;
+    }
+
+    .password-toggle {
+        position: absolute;
+        right: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        background: none;
+        border: none;
+        color: #666;
+        cursor: pointer;
+        padding: 5px;
+        border-radius: 3px;
+        transition: all 0.2s ease;
+        z-index: 2;
+    }
+
+    .password-toggle:hover {
+        color: #2c5aa0;
+        background: rgba(44, 90, 160, 0.1);
+    }
+
+    .password-toggle:focus {
+        outline: none;
+        color: #2c5aa0;
+        background: rgba(44, 90, 160, 0.1);
+    }
+
+    .password-toggle i {
+        font-size: 18px;
+    }
+
     .checkbox-group {
         display: flex;
         align-items: center;
@@ -253,6 +296,23 @@
         font-weight: 500;
     }
 
+    /* Additional Professional Elements */
+    .access-info {
+        background: rgba(44, 90, 160, 0.1);
+        border: 1px solid rgba(44, 90, 160, 0.2);
+        border-radius: 8px;
+        padding: 12px;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+
+    .access-info-text {
+        color: #2c5aa0;
+        font-size: 12px;
+        margin: 0;
+        font-weight: 500;
+    }
+
     /* Responsive Design */
     @media (max-width: 768px) {
         .login-card {
@@ -325,6 +385,13 @@
             <p class="login-subtitle">Secure Law Enforcement Access</p>
         </div>
 
+        <!-- Access Information -->
+        <div class="access-info">
+            <p class="access-info-text">
+                <i class="bi bi-shield-check"></i> Authorized Personnel Only | Incident Management | Case Files | Reports
+            </p>
+        </div>
+
         <!-- Display Messages -->
         {% if messages %}
             {% for message in messages %}
@@ -338,30 +405,47 @@
             {% csrf_token %}
             
             <div class="form-group">
-                <label for="username" class="form-label">Badge Number / Username</label>
+                <label for="username" class="form-label">
+                    <i class="bi bi-person-badge"></i> Badge Number / Username
+                </label>
                 <input 
                     type="text" 
                     id="username" 
                     name="username" 
                     class="form-input"
-                    placeholder="Enter your badge number"
+                    placeholder="Enter your badge number or username"
                     required
                     autocomplete="username"
                     autofocus
+                    aria-label="Badge number or username"
                 >
             </div>
 
             <div class="form-group">
-                <label for="password" class="form-label">Password</label>
-                <input 
-                    type="password" 
-                    id="password" 
-                    name="password" 
-                    class="form-input"
-                    placeholder="Enter your password"
-                    required
-                    autocomplete="current-password"
-                >
+                <label for="password" class="form-label">
+                    <i class="bi bi-lock"></i> Password
+                </label>
+                <div class="password-input-wrapper">
+                    <input 
+                        type="password" 
+                        id="password" 
+                        name="password" 
+                        class="form-input"
+                        placeholder="Enter your secure password"
+                        required
+                        autocomplete="current-password"
+                        aria-label="Password"
+                    >
+                    <button 
+                        type="button" 
+                        class="password-toggle" 
+                        id="togglePassword"
+                        aria-label="Toggle password visibility"
+                        title="Show/Hide password"
+                    >
+                        <i class="bi bi-eye" id="toggleIcon"></i>
+                    </button>
+                </div>
             </div>
 
             <div class="checkbox-group">
@@ -371,27 +455,30 @@
                     name="remember_me" 
                     class="checkbox-input"
                     value="1"
+                    aria-label="Keep me signed in"
                 >
                 <label for="remember_me" class="checkbox-label">
-                    Keep me signed in (2 weeks)
+                    <i class="bi bi-clock-history"></i> Keep me signed in (2 weeks)
                 </label>
             </div>
 
-            <button type="submit" class="login-button">
-                Secure Login
+            <button type="submit" class="login-button" aria-label="Secure login to police portal">
+                <i class="bi bi-shield-lock"></i> Secure Login
             </button>
         </form>
 
         <div class="security-notice">
             <p class="security-notice-text">
-                🔒 This system is for authorized law enforcement personnel only. 
-                All activities are monitored and logged.
+                <i class="bi bi-lock-fill"></i> This system is for authorized law enforcement personnel only. 
+                All activities are monitored and logged for security compliance.
             </p>
         </div>
 
         <div class="login-footer">
             <p class="footer-text">
-                © 2024 Police Management System | Secure & Confidential
+                © 2024 Police Management System | Secure & Confidential | 
+                <i class="bi bi-telephone"></i> IT Support: ext. 911 | 
+                <i class="bi bi-envelope"></i> support@policeportal.gov
             </p>
         </div>
     </div>
@@ -401,9 +488,57 @@
 document.addEventListener('DOMContentLoaded', function() {
     const form = document.getElementById('loginForm');
     const loginCard = document.querySelector('.login-card');
+    const passwordInput = document.getElementById('password');
+    const toggleButton = document.getElementById('togglePassword');
+    const toggleIcon = document.getElementById('toggleIcon');
+    let isPasswordVisible = false;
     
-    form.addEventListener('submit', function() {
+    // Password visibility toggle functionality
+    toggleButton.addEventListener('click', function(e) {
+        e.preventDefault();
+        isPasswordVisible = !isPasswordVisible;
+        
+        if (isPasswordVisible) {
+            passwordInput.type = 'text';
+            toggleIcon.className = 'bi bi-eye-slash';
+            toggleButton.setAttribute('title', 'Hide password');
+            toggleButton.setAttribute('aria-label', 'Hide password');
+        } else {
+            passwordInput.type = 'password';
+            toggleIcon.className = 'bi bi-eye';
+            toggleButton.setAttribute('title', 'Show password');
+            toggleButton.setAttribute('aria-label', 'Show password');
+        }
+        
+        // Keep focus on password input
+        passwordInput.focus();
+    });
+    
+    // Keyboard accessibility for password toggle
+    toggleButton.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            toggleButton.click();
+        }
+    });
+    
+    // Form submission handling
+    form.addEventListener('submit', function(e) {
         loginCard.classList.add('loading');
+        
+        // Basic client-side validation
+        const username = document.getElementById('username').value.trim();
+        const password = passwordInput.value;
+        
+        if (!username || !password) {
+            e.preventDefault();
+            loginCard.classList.remove('loading');
+            alert('Please enter both badge number/username and password.');
+            return false;
+        }
+        
+        // Additional security: Log login attempt (in real implementation, this would be server-side)
+        console.log('Login attempt initiated for user:', username.substring(0, 3) + '***');
     });
     
     // Auto-focus on username field
@@ -412,6 +547,38 @@ document.addEventListener('DOMContentLoaded', function() {
     // Clear form on page load if needed
     if (window.location.search.includes('logout=1')) {
         form.reset();
+        // Show logout message
+        const logoutNotice = document.createElement('div');
+        logoutNotice.className = 'alert alert-success';
+        logoutNotice.innerHTML = '<i class="bi bi-check-circle"></i> You have been securely logged out.';
+        form.parentNode.insertBefore(logoutNotice, form);
     }
+    
+    // Enhanced security: Prevent right-click context menu on sensitive elements
+    const sensitiveElements = document.querySelectorAll('.login-card, .form-input');
+    sensitiveElements.forEach(element => {
+        element.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+        });
+    });
+    
+    // Auto-logout warning for enhanced security
+    let inactivityTimer;
+    const INACTIVITY_TIMEOUT = 300000; // 5 minutes
+    
+    function resetInactivityTimer() {
+        clearTimeout(inactivityTimer);
+        inactivityTimer = setTimeout(() => {
+            alert('For security reasons, this session will expire soon due to inactivity.');
+        }, INACTIVITY_TIMEOUT);
+    }
+    
+    // Reset timer on user activity
+    ['mousedown', 'mousemove', 'keypress', 'scroll', 'touchstart'].forEach(event => {
+        document.addEventListener(event, resetInactivityTimer, true);
+    });
+    
+    // Initialize inactivity timer
+    resetInactivityTimer();
 });
 </script>

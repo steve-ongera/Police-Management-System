@@ -5,7 +5,7 @@ from . import views
 
 urlpatterns = [
     # Auth routes
-    path('login/', views.login_view, name='login'),
+    path('', views.login_view, name='login'),
     path('logout/', views.logout_view, name='logout'),
 
     # Dashboard routes
