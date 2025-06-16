@@ -285,48 +285,137 @@
                     <span class="menu-text">Dashboard</span>
                 </a>
             </li>
-            <li>
-                <a href="#">
-                    <i class="bi bi-people"></i>
-                    <span class="menu-text">Personnel</span>
+            
+            <!-- Personnel Management -->
+            <li style="border-bottom: 1px solid #3d5166;">
+                <a href="#" style="display: flex; align-items: center; justify-content: space-between;">
+                    <div style="display: flex; align-items: center;">
+                        <i class="bi bi-people" style="margin-right: 10px;"></i>
+                        <span class="menu-text">Personnel</span>
+                    </div>
+                    <i class="bi bi-chevron-down" style="font-size: 0.8rem;"></i>
                 </a>
+                <ul style="list-style: none; padding: 0; margin: 0; background-color: #3d5166; display: none;">
+                    <li><a href="#" style="display: block; padding: 10px 20px 10px 50px; color: #bdc3c7; text-decoration: none;"><i class="bi bi-person-badge" style="margin-right: 8px;"></i> Officers</a></li>
+                    <li><a href="#" style="display: block; padding: 10px 20px 10px 50px; color: #bdc3c7; text-decoration: none;"><i class="bi bi-person-gear" style="margin-right: 8px;"></i> Administrators</a></li>
+                    <li><a href="#" style="display: block; padding: 10px 20px 10px 50px; color: #bdc3c7; text-decoration: none;"><i class="bi bi-person-lines-fill" style="margin-right: 8px;"></i> Dispatchers</a></li>
+                    <li><a href="#" style="display: block; padding: 10px 20px 10px 50px; color: #bdc3c7; text-decoration: none;"><i class="bi bi-shield-shaded" style="margin-right: 8px;"></i> Supervisors</a></li>
+                    <li><a href="#" style="display: block; padding: 10px 20px 10px 50px; color: #bdc3c7; text-decoration: none;"><i class="bi bi-clock-history" style="margin-right: 8px;"></i> Shifts</a></li>
+                </ul>
             </li>
-            <li>
-                <a href="#">
-                    <i class="bi bi-journal-text"></i>
-                    <span class="menu-text">Incidents</span>
-                    <span class="badge badge-police bg-danger ms-auto">5</span>
+            
+            <!-- Incident Management -->
+            <li style="border-bottom: 1px solid #3d5166;">
+                <a href="#" style="display: flex; align-items: center; justify-content: space-between;">
+                    <div style="display: flex; align-items: center;">
+                        <i class="bi bi-journal-text" style="margin-right: 10px;"></i>
+                        <span class="menu-text">Incidents</span>
+                        <span class="badge badge-police bg-danger ms-auto" style="margin-left: 10px;">5</span>
+                    </div>
+                    <i class="bi bi-chevron-down" style="font-size: 0.8rem;"></i>
                 </a>
+                <ul style="list-style: none; padding: 0; margin: 0; background-color: #3d5166; display: none;">
+                    <li><a href="#" style="display: block; padding: 10px 20px 10px 50px; color: #bdc3c7; text-decoration: none;"><i class="bi bi-plus-circle" style="margin-right: 8px;"></i> New Incident</a></li>
+                    <li><a href="#" style="display: block; padding: 10px 20px 10px 50px; color: #bdc3c7; text-decoration: none;"><i class="bi bi-list-check" style="margin-right: 8px;"></i> Active Cases</a></li>
+                    <li><a href="#" style="display: block; padding: 10px 20px 10px 50px; color: #bdc3c7; text-decoration: none;"><i class="bi bi-archive" style="margin-right: 8px;"></i> Closed Cases</a></li>
+                    <li><a href="#" style="display: block; padding: 10px 20px 10px 50px; color: #bdc3c7; text-decoration: none;"><i class="bi bi-diagram-3" style="margin-right: 8px;"></i> Crime Types</a></li>
+                    <li><a href="#" style="display: block; padding: 10px 20px 10px 50px; color: #bdc3c7; text-decoration: none;"><i class="bi bi-phone-vibrate" style="margin-right: 8px;"></i> Emergency Calls</a></li>
+                </ul>
             </li>
+            
+            <!-- Persons Management -->
+            <li style="border-bottom: 1px solid #3d5166;">
+                <a href="#" style="display: flex; align-items: center; justify-content: space-between;">
+                    <div style="display: flex; align-items: center;">
+                        <i class="bi bi-person-vcard" style="margin-right: 10px;"></i>
+                        <span class="menu-text">Persons</span>
+                    </div>
+                    <i class="bi bi-chevron-down" style="font-size: 0.8rem;"></i>
+                </a>
+                <ul style="list-style: none; padding: 0; margin: 0; background-color: #3d5166; display: none;">
+                    <li><a href="#" style="display: block; padding: 10px 20px 10px 50px; color: #bdc3c7; text-decoration: none;"><i class="bi bi-person-x" style="margin-right: 8px;"></i> Suspects</a></li>
+                    <li><a href="#" style="display: block; padding: 10px 20px 10px 50px; color: #bdc3c7; text-decoration: none;"><i class="bi bi-person-heart" style="margin-right: 8px;"></i> Victims</a></li>
+                    <li><a href="#" style="display: block; padding: 10px 20px 10px 50px; color: #bdc3c7; text-decoration: none;"><i class="bi bi-person-check" style="margin-right: 8px;"></i> Witnesses</a></li>
+                    <li><a href="#" style="display: block; padding: 10px 20px 10px 50px; color: #bdc3c7; text-decoration: none;"><i class="bi bi-person-rolodex" style="margin-right: 8px;"></i> Complainants</a></li>
+                </ul>
+            </li>
+            
+            <!-- Vehicles -->
             <li>
                 <a href="#">
                     <i class="bi bi-car-front"></i>
                     <span class="menu-text">Vehicles</span>
+                    <span class="badge badge-police bg-warning ms-auto">3</span>
                 </a>
             </li>
-            <li>
-                <a href="#">
-                    <i class="bi bi-clipboard-data"></i>
-                    <span class="menu-text">Reports</span>
+            
+            <!-- Evidence Management -->
+            <li style="border-bottom: 1px solid #3d5166;">
+                <a href="#" style="display: flex; align-items: center; justify-content: space-between;">
+                    <div style="display: flex; align-items: center;">
+                        <i class="bi bi-archive" style="margin-right: 10px;"></i>
+                        <span class="menu-text">Evidence</span>
+                    </div>
+                    <i class="bi bi-chevron-down" style="font-size: 0.8rem;"></i>
                 </a>
+                <ul style="list-style: none; padding: 0; margin: 0; background-color: #3d5166; display: none;">
+                    <li><a href="#" style="display: block; padding: 10px 20px 10px 50px; color: #bdc3c7; text-decoration: none;"><i class="bi bi-box-seam" style="margin-right: 8px;"></i> All Evidence</a></li>
+                    <li><a href="#" style="display: block; padding: 10px 20px 10px 50px; color: #bdc3c7; text-decoration: none;"><i class="bi bi-database" style="margin-right: 8px;"></i> Digital Evidence</a></li>
+                    <li><a href="#" style="display: block; padding: 10px 20px 10px 50px; color: #bdc3c7; text-decoration: none;"><i class="bi bi-droplet" style="margin-right: 8px;"></i> Biological</a></li>
+                    <li><a href="#" style="display: block; padding: 10px 20px 10px 50px; color: #bdc3c7; text-decoration: none;"><i class="bi bi-file-earmark-text" style="margin-right: 8px;"></i> Documents</a></li>
+                    <li><a href="#" style="display: block; padding: 10px 20px 10px 50px; color: #bdc3c7; text-decoration: none;"><i class="bi bi-camera" style="margin-right: 8px;"></i> Photographs</a></li>
+                </ul>
             </li>
-            <li>
-                <a href="#">
-                    <i class="bi bi-map"></i>
-                    <span class="menu-text">Patrol Areas</span>
+            
+            <!-- Reports -->
+            <li style="border-bottom: 1px solid #3d5166;">
+                <a href="#" style="display: flex; align-items: center; justify-content: space-between;">
+                    <div style="display: flex; align-items: center;">
+                        <i class="bi bi-clipboard-data" style="margin-right: 10px;"></i>
+                        <span class="menu-text">Reports</span>
+                    </div>
+                    <i class="bi bi-chevron-down" style="font-size: 0.8rem;"></i>
                 </a>
+                <ul style="list-style: none; padding: 0; margin: 0; background-color: #3d5166; display: none;">
+                    <li><a href="#" style="display: block; padding: 10px 20px 10px 50px; color: #bdc3c7; text-decoration: none;"><i class="bi bi-file-earmark-text" style="margin-right: 8px;"></i> Incident Reports</a></li>
+                    <li><a href="#" style="display: block; padding: 10px 20px 10px 50px; color: #bdc3c7; text-decoration: none;"><i class="bi bi-file-earmark-arrow-up" style="margin-right: 8px;"></i> Investigation</a></li>
+                    <li><a href="#" style="display: block; padding: 10px 20px 10px 50px; color: #bdc3c7; text-decoration: none;"><i class="bi bi-file-earmark-break" style="margin-right: 8px;"></i> Arrest Reports</a></li>
+                    <li><a href="#" style="display: block; padding: 10px 20px 10px 50px; color: #bdc3c7; text-decoration: none;"><i class="bi bi-file-earmark-bar-graph" style="margin-right: 8px;"></i> Statistical</a></li>
+                </ul>
             </li>
-            <li>
-                <a href="#">
-                    <i class="bi bi-archive"></i>
-                    <span class="menu-text">Evidence</span>
+            
+            <!-- Legal -->
+            <li style="border-bottom: 1px solid #3d5166;">
+                <a href="#" style="display: flex; align-items: center; justify-content: space-between;">
+                    <div style="display: flex; align-items: center;">
+                        <i class="bi bi-gavel" style="margin-right: 10px;"></i>
+                        <span class="menu-text">Legal</span>
+                    </div>
+                    <i class="bi bi-chevron-down" style="font-size: 0.8rem;"></i>
                 </a>
+                <ul style="list-style: none; padding: 0; margin: 0; background-color: #3d5166; display: none;">
+                    <li><a href="#" style="display: block; padding: 10px 20px 10px 50px; color: #bdc3c7; text-decoration: none;"><i class="bi bi-person-lock" style="margin-right: 8px;"></i> Arrests</a></li>
+                    <li><a href="#" style="display: block; padding: 10px 20px 10px 50px; color: #bdc3c7; text-decoration: none;"><i class="bi bi-building" style="margin-right: 8px;"></i> Court Cases</a></li>
+                    <li><a href="#" style="display: block; padding: 10px 20px 10px 50px; color: #bdc3c7; text-decoration: none;"><i class="bi bi-cash-stack" style="margin-right: 8px;"></i> Bail Management</a></li>
+                </ul>
             </li>
-            <li>
-                <a href="#">
-                    <i class="bi bi-gear"></i>
-                    <span class="menu-text">Settings</span>
+            
+            <!-- Administration -->
+            <li style="border-bottom: 1px solid #3d5166;">
+                <a href="#" style="display: flex; align-items: center; justify-content: space-between;">
+                    <div style="display: flex; align-items: center;">
+                        <i class="bi bi-gear" style="margin-right: 10px;"></i>
+                        <span class="menu-text">Administration</span>
+                    </div>
+                    <i class="bi bi-chevron-down" style="font-size: 0.8rem;"></i>
                 </a>
+                <ul style="list-style: none; padding: 0; margin: 0; background-color: #3d5166; display: none;">
+                    <li><a href="#" style="display: block; padding: 10px 20px 10px 50px; color: #bdc3c7; text-decoration: none;"><i class="bi bi-building" style="margin-right: 8px;"></i> Departments</a></li>
+                    <li><a href="#" style="display: block; padding: 10px 20px 10px 50px; color: #bdc3c7; text-decoration: none;"><i class="bi bi-house-gear" style="margin-right: 8px;"></i> Stations</a></li>
+                    <li><a href="#" style="display: block; padding: 10px 20px 10px 50px; color: #bdc3c7; text-decoration: none;"><i class="bi bi-tools" style="margin-right: 8px;"></i> Equipment</a></li>
+                    <li><a href="#" style="display: block; padding: 10px 20px 10px 50px; color: #bdc3c7; text-decoration: none;"><i class="bi bi-shield-check" style="margin-right: 8px;"></i> System Settings</a></li>
+                    <li><a href="#" style="display: block; padding: 10px 20px 10px 50px; color: #bdc3c7; text-decoration: none;"><i class="bi bi-journal-bookmark" style="margin-right: 8px;"></i> Audit Logs</a></li>
+                </ul>
             </li>
         </ul>
     </div>
@@ -391,11 +480,39 @@
             });
             
             // Active menu item highlight
-            const menuItems = document.querySelectorAll('.sidebar-menu li a');
+            const menuItems = document.querySelectorAll('.sidebar-menu > li > a:not(.dropdown-toggle)');
             menuItems.forEach(item => {
                 item.addEventListener('click', function() {
                     menuItems.forEach(i => i.classList.remove('active'));
                     this.classList.add('active');
+                });
+            });
+            
+            // Handle dropdown toggles
+            const dropdownToggles = document.querySelectorAll('.sidebar-menu > li > a > i.bi-chevron-down');
+            
+            dropdownToggles.forEach(toggle => {
+                toggle.parentElement.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const dropdownMenu = this.nextElementSibling;
+                    
+                    // Close other open dropdowns first
+                    const allOpen = document.querySelectorAll('.sidebar-menu ul[style*="display: block"]');
+                    allOpen.forEach(openMenu => {
+                        if (openMenu !== dropdownMenu) {
+                            openMenu.style.display = 'none';
+                            openMenu.previousElementSibling.querySelector('i.bi-chevron-down').classList.replace('bi-chevron-up', 'bi-chevron-down');
+                        }
+                    });
+
+                    // Toggle current dropdown
+                    if (dropdownMenu.style.display === 'block') {
+                        dropdownMenu.style.display = 'none';
+                        toggle.classList.replace('bi-chevron-up', 'bi-chevron-down');
+                    } else {
+                        dropdownMenu.style.display = 'block';
+                        toggle.classList.replace('bi-chevron-down', 'bi-chevron-up');
+                    }
                 });
             });
         });
