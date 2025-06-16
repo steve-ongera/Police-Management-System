@@ -258,3 +258,41 @@ def dashboard_api(request):
         return JsonResponse({'incidents': data})
     
     return JsonResponse({'error': 'Invalid data type'}, status=400)
+
+
+
+from django.core.paginator import Paginator
+from .models import User
+
+def officer_list(request):
+    officers = User.objects.filter(role__in=['officer', 'detective', 'supervisor']).order_by('last_name')
+    
+    # Search functionality
+    search_query = request.GET.get('q', '')
+    if search_query:
+        officers = officers.filter(
+            Q(first_name__icontains=search_query) | 
+            Q(last_name__icontains=search_query) |
+            Q(badge_number__icontains=search_query))
+    
+    # Filter by role
+    role_filter = request.GET.get('role', '')
+    if role_filter:
+        officers = officers.filter(role=role_filter)
+    
+    # Filter by status
+    status_filter = request.GET.get('status', '')
+    if status_filter == 'active':
+        officers = officers.filter(is_active_duty=True)
+    elif status_filter == 'inactive':
+        officers = officers.filter(is_active_duty=False)
+    
+    # Pagination
+    paginator = Paginator(officers, 25)  # Show 25 officers per page
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    
+    context = {
+        'officers': page_obj,
+    }
+    return render(request, 'officers/officers_list.html', context)

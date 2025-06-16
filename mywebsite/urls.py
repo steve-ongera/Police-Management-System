@@ -11,4 +11,7 @@ urlpatterns = [
     # Dashboard routes
     path('dashboard/', views.dashboard_view, name='dashboard'),
     path('dashboard/api/', views.dashboard_api, name='dashboard_api'),
+    path('officers/', views.officer_list , name="officers"),
+
+
 ]
