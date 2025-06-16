@@ -1,10 +1,14 @@
+# police/urls.py
 
 from django.urls import path
-from django.contrib.auth.views import LoginView, LogoutView
 from . import views
 
 urlpatterns = [
-    path('', views.login_view , name='login'),
-    path('logout/', views.logout_view , name='logout'),
+    # Auth routes
+    path('login/', views.login_view, name='login'),
+    path('logout/', views.logout_view, name='logout'),
+
+    # Dashboard routes
     path('dashboard/', views.dashboard_view, name='dashboard'),
+    path('dashboard/api/', views.dashboard_api, name='dashboard_api'),
 ]

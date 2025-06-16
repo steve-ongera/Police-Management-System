@@ -3,81 +3,72 @@
 
 {% block title %}Dashboard - Police Management System{% endblock %}
 
-
 {% block content %}
 
 <style>
     :root {
-        --primary-black: #1a1a1a;
-        --secondary-black: #2d2d2d;
-        --dark-gray: #404040;
-        --medium-gray: #666666;
-        --light-gray: #cccccc;
-        --accent-blue: #3b82f6;
-        --success-green: #10b981;
-        --warning-orange: #f59e0b;
-        --danger-red: #ef4444;
+        --primary-black: #121212;
+        --secondary-black: #1e1e1e;
+        --dark-gray: #2d2d2d;
+        --medium-gray: #3d3d3d;
+        --light-gray: #e0e0e0;
+        --white: #ffffff;
+        --accent-blue: #3a86ff;
+        --success-green: #4caf50;
+        --warning-orange: #ff9800;
+        --danger-red: #f44336;
         --text-primary: #ffffff;
-        --text-secondary: #d1d5db;
-        --border-color: #404040;
-    }
-
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-    }
-
-    body {
-        background-color: var(--primary-black);
-        color: var(--text-primary);
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        line-height: 1.6;
+        --text-secondary: #b0b0b0;
+        --border-color: #333333;
     }
 
     .dashboard-container {
         padding: 2rem;
-        max-width: 1400px;
+        max-width: 1800px;
         margin: 0 auto;
     }
 
     .dashboard-header {
-        margin-bottom: 2rem;
-        border-bottom: 2px solid var(--border-color);
-        padding-bottom: 1rem;
+        margin-bottom: 2.5rem;
+        padding-bottom: 1.5rem;
+        border-bottom: 1px solid var(--medium-gray);
     }
 
     .dashboard-title {
-        font-size: 2.5rem;
+        font-size: 2.2rem;
         font-weight: 700;
-        color: var(--text-primary);
+        color: var(--white);
         margin-bottom: 0.5rem;
+        letter-spacing: 0.5px;
     }
 
     .dashboard-subtitle {
         color: var(--text-secondary);
         font-size: 1.1rem;
+        font-weight: 400;
     }
 
+    /* Stats Grid */
     .stats-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-        gap: 1.5rem;
-        margin-bottom: 3rem;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 1.8rem;
+        margin-bottom: 3.5rem;
     }
 
     .stat-card {
-        background: linear-gradient(135deg, var(--secondary-black) 0%, var(--dark-gray) 100%);
+        background: var(--secondary-black);
         border: 1px solid var(--border-color);
-        border-radius: 12px;
-        padding: 2rem;
+        border-radius: 10px;
+        padding: 2rem 1.5rem;
         text-align: center;
-        transition: all 0.3s ease;
+        transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
         position: relative;
         overflow: hidden;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }
 
-    .stat-card::before {
+    .stat-card::after {
         content: '';
         position: absolute;
         top: 0;
@@ -85,135 +76,134 @@
         right: 0;
         height: 4px;
         background: var(--accent-blue);
-        transform: translateX(-100%);
-        transition: transform 0.3s ease;
+        transition: all 0.3s ease;
     }
 
     .stat-card:hover {
         transform: translateY(-5px);
-        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        box-shadow: 0 12px 20px rgba(0, 0, 0, 0.2);
+        border-color: var(--medium-gray);
     }
 
-    .stat-card:hover::before {
-        transform: translateX(0);
-    }
-
-    .stat-card.emergency {
-        border-left: 4px solid var(--danger-red);
-    }
-
-    .stat-card.warning {
-        border-left: 4px solid var(--warning-orange);
-    }
-
-    .stat-card.success {
-        border-left: 4px solid var(--success-green);
-    }
-
-    .stat-card.info {
-        border-left: 4px solid var(--accent-blue);
-    }
+    .stat-card.info::after { background: var(--accent-blue); }
+    .stat-card.warning::after { background: var(--warning-orange); }
+    .stat-card.emergency::after { background: var(--danger-red); }
+    .stat-card.success::after { background: var(--success-green); }
 
     .stat-number {
-        font-size: 3rem;
+        font-size: 2.8rem;
         font-weight: 800;
-        margin-bottom: 0.5rem;
-        background: linear-gradient(45deg, var(--text-primary), var(--light-gray));
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
+        margin-bottom: 0.8rem;
+        color: var(--white);
+        font-family: 'Arial', sans-serif;
     }
 
     .stat-label {
-        font-size: 1.1rem;
+        font-size: 1rem;
         color: var(--text-secondary);
         text-transform: uppercase;
-        letter-spacing: 0.5px;
+        letter-spacing: 1px;
         font-weight: 600;
     }
 
+    /* Content Sections */
     .content-section {
         background: var(--secondary-black);
         border: 1px solid var(--border-color);
-        border-radius: 12px;
-        margin-bottom: 2rem;
+        border-radius: 10px;
+        margin-bottom: 2.5rem;
         overflow: hidden;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }
 
     .section-header {
         background: var(--dark-gray);
         padding: 1.5rem 2rem;
         border-bottom: 1px solid var(--border-color);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
     }
 
     .section-title {
-        font-size: 1.5rem;
+        font-size: 1.4rem;
         font-weight: 600;
-        color: var(--text-primary);
+        color: var(--white);
         margin: 0;
     }
 
     .section-content {
-        padding: 2rem;
+        padding: 1.5rem 2rem;
     }
 
+    /* Table Styles */
     .incidents-table {
         width: 100%;
-        border-collapse: collapse;
+        border-collapse: separate;
+        border-spacing: 0;
         background: transparent;
-    }
-
-    .incidents-table th,
-    .incidents-table td {
-        padding: 1rem;
-        text-align: left;
-        border-bottom: 1px solid var(--border-color);
     }
 
     .incidents-table th {
         background: var(--dark-gray);
-        color: var(--text-primary);
+        color: var(--white);
         font-weight: 600;
         text-transform: uppercase;
         letter-spacing: 0.5px;
-        font-size: 0.9rem;
+        font-size: 0.85rem;
+        padding: 1rem 1.2rem;
+        border-bottom: 2px solid var(--border-color);
     }
 
     .incidents-table td {
         color: var(--text-secondary);
+        padding: 1rem 1.2rem;
+        border-bottom: 1px solid var(--border-color);
+        vertical-align: middle;
     }
 
-    .incidents-table tr:hover {
-        background: var(--dark-gray);
+    .incidents-table tr:last-child td {
+        border-bottom: none;
     }
 
+    .incidents-table tr:hover td {
+        background: rgba(255, 255, 255, 0.03);
+        color: var(--white);
+    }
+
+    /* Status Badges */
     .status-badge {
-        padding: 0.4rem 0.8rem;
+        padding: 0.5rem 1rem;
         border-radius: 20px;
-        font-size: 0.8rem;
-        font-weight: 600;
+        font-size: 0.75rem;
+        font-weight: 700;
         text-transform: uppercase;
         letter-spacing: 0.5px;
+        display: inline-block;
+        min-width: 100px;
+        text-align: center;
     }
 
     .status-open {
-        background: rgba(239, 68, 68, 0.2);
+        background: rgba(244, 67, 54, 0.15);
         color: var(--danger-red);
-        border: 1px solid var(--danger-red);
+        border: 1px solid rgba(244, 67, 54, 0.3);
     }
 
     .status-investigating {
-        background: rgba(245, 158, 11, 0.2);
+        background: rgba(255, 152, 0, 0.15);
         color: var(--warning-orange);
-        border: 1px solid var(--warning-orange);
+        border: 1px solid rgba(255, 152, 0, 0.3);
     }
 
     .status-resolved {
-        background: rgba(16, 185, 129, 0.2);
+        background: rgba(76, 175, 80, 0.15);
         color: var(--success-green);
-        border: 1px solid var(--success-green);
+        border: 1px solid rgba(76, 175, 80, 0.3);
     }
 
+    /* Priority Indicators */
     .priority-high {
         color: var(--danger-red);
         font-weight: 700;
@@ -229,52 +219,78 @@
         font-weight: 500;
     }
 
+    /* Loading Spinner */
     .loading-spinner {
         display: inline-block;
-        width: 20px;
-        height: 20px;
-        border: 3px solid var(--border-color);
+        width: 22px;
+        height: 22px;
+        border: 3px solid rgba(58, 134, 255, 0.3);
         border-radius: 50%;
         border-top-color: var(--accent-blue);
         animation: spin 1s ease-in-out infinite;
+        vertical-align: middle;
     }
 
     @keyframes spin {
         to { transform: rotate(360deg); }
     }
 
+    /* Buttons */
     .refresh-btn {
         background: var(--accent-blue);
         color: white;
         border: none;
-        padding: 0.8rem 1.5rem;
-        border-radius: 8px;
+        padding: 0.7rem 1.5rem;
+        border-radius: 6px;
         cursor: pointer;
         font-weight: 600;
         transition: all 0.3s ease;
-        float: right;
-        margin-top: -10px;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
     }
 
     .refresh-btn:hover {
-        background: #2563eb;
+        background: #2a75ff;
         transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(58, 134, 255, 0.2);
     }
 
+    .refresh-btn i {
+        font-size: 1rem;
+    }
+
+    /* Empty States */
     .no-data {
         text-align: center;
         padding: 3rem;
         color: var(--text-secondary);
         font-style: italic;
+        background: rgba(255, 255, 255, 0.02);
+        border-radius: 8px;
+        margin: 1rem 0;
     }
 
     .error-message {
-        background: rgba(239, 68, 68, 0.1);
-        border: 1px solid var(--danger-red);
+        background: rgba(244, 67, 54, 0.1);
+        border: 1px solid rgba(244, 67, 54, 0.3);
         color: var(--danger-red);
-        padding: 1rem;
+        padding: 1.2rem;
         border-radius: 8px;
         margin: 1rem 0;
+        font-weight: 500;
+    }
+
+    /* Responsive Adjustments */
+    @media (max-width: 992px) {
+        .dashboard-container {
+            padding: 1.5rem;
+        }
+        
+        .stats-grid {
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.2rem;
+        }
     }
 
     @media (max-width: 768px) {
@@ -282,35 +298,52 @@
             padding: 1rem;
         }
 
-        .stats-grid {
-            grid-template-columns: 1fr;
-        }
-
         .dashboard-title {
-            font-size: 2rem;
+            font-size: 1.8rem;
         }
 
-        .incidents-table {
-            font-size: 0.9rem;
+        .section-header {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 1rem;
+            padding: 1.2rem;
+        }
+
+        .section-content {
+            padding: 1rem;
         }
 
         .incidents-table th,
         .incidents-table td {
-            padding: 0.8rem 0.5rem;
+            padding: 0.8rem;
+            font-size: 0.85rem;
         }
 
         .refresh-btn {
-            float: none;
-            margin-top: 1rem;
             width: 100%;
+            justify-content: center;
+        }
+    }
+
+    @media (max-width: 576px) {
+        .stats-grid {
+            grid-template-columns: 1fr;
+        }
+        
+        .incidents-table {
+            display: block;
+            overflow-x: auto;
+            white-space: nowrap;
         }
     }
 </style>
 
 <div class="dashboard-container">
     <div class="dashboard-header">
-        <h1 class="dashboard-title">Dashboard</h1>
-        <p class="dashboard-subtitle">Police Management System Overview</p>
+        <div>
+            <h1 style="color:black" class="dashboard-title">Command Dashboard</h1>
+            <p class="dashboard-subtitle">Real-time operational overview and incident management</p>
+        </div>
     </div>
 
     <!-- Statistics Cards -->
@@ -326,30 +359,30 @@
             <div class="stat-number" id="open-incidents">
                 <span class="loading-spinner"></span>
             </div>
-            <div class="stat-label">Open Incidents</div>
+            <div class="stat-label">Active Cases</div>
         </div>
         
         <div class="stat-card emergency">
             <div class="stat-number" id="emergency-calls">
                 <span class="loading-spinner"></span>
             </div>
-            <div class="stat-label">Emergency Calls Today</div>
+            <div class="stat-label">Emergency Calls</div>
         </div>
         
         <div class="stat-card success">
             <div class="stat-number" id="active-officers">
                 <span class="loading-spinner"></span>
             </div>
-            <div class="stat-label">Active Officers</div>
+            <div class="stat-label">Officers On Duty</div>
         </div>
     </div>
 
     <!-- Recent Incidents Section -->
     <div class="content-section">
         <div class="section-header">
-            <h2 class="section-title">Recent Incidents</h2>
+            <h2 class="section-title">Active Incidents</h2>
             <button class="refresh-btn" onclick="loadRecentIncidents()">
-                Refresh Data
+                <i class="bi bi-arrow-clockwise"></i> Refresh Data
             </button>
         </div>
         <div class="section-content">
@@ -376,10 +409,10 @@ function loadDashboardStats() {
     fetch('/dashboard/api/?type=stats')
         .then(response => response.json())
         .then(data => {
-            document.getElementById('total-incidents').textContent = data.total_incidents || 0;
-            document.getElementById('open-incidents').textContent = data.open_incidents || 0;
-            document.getElementById('emergency-calls').textContent = data.emergency_calls_today || 0;
-            document.getElementById('active-officers').textContent = data.active_officers || 0;
+            document.getElementById('total-incidents').textContent = data.total_incidents?.toLocaleString() || '0';
+            document.getElementById('open-incidents').textContent = data.open_incidents?.toLocaleString() || '0';
+            document.getElementById('emergency-calls').textContent = data.emergency_calls_today?.toLocaleString() || '0';
+            document.getElementById('active-officers').textContent = data.active_officers?.toLocaleString() || '0';
         })
         .catch(error => {
             console.error('Error loading stats:', error);
@@ -399,12 +432,12 @@ function loadRecentIncidents() {
                     <table class="incidents-table">
                         <thead>
                             <tr>
-                                <th>Incident #</th>
-                                <th>Title</th>
+                                <th>Case #</th>
+                                <th>Description</th>
                                 <th>Status</th>
                                 <th>Priority</th>
-                                <th>Date</th>
-                                <th>Officer</th>
+                                <th>Reported</th>
+                                <th>Assigned To</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -420,8 +453,8 @@ function loadRecentIncidents() {
                             <td>${incident.title}</td>
                             <td><span class="status-badge ${statusClass}">${incident.status}</span></td>
                             <td><span class="${priorityClass}">${incident.priority}</span></td>
-                            <td>${formatDate(incident.date_occurred)}</td>
-                            <td>${incident.officer}</td>
+                            <td>${formatDateTime(incident.date_occurred)}</td>
+                            <td>${incident.officer || 'Unassigned'}</td>
                         </tr>
                     `;
                 });
@@ -429,12 +462,12 @@ function loadRecentIncidents() {
                 tableHTML += '</tbody></table>';
                 container.innerHTML = tableHTML;
             } else {
-                container.innerHTML = '<div class="no-data">No recent incidents found.</div>';
+                container.innerHTML = '<div class="no-data">No active incidents to display</div>';
             }
         })
         .catch(error => {
             console.error('Error loading incidents:', error);
-            container.innerHTML = '<div class="error-message">Failed to load recent incidents</div>';
+            container.innerHTML = '<div class="error-message">Error: Could not load incident data. Please try again.</div>';
         });
 }
 
@@ -462,14 +495,24 @@ function getPriorityClass(priority) {
     return 'priority-medium';
 }
 
-function formatDate(dateString) {
-    const date = new Date(dateString);
-    return date.toLocaleDateString() + ' ' + date.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+function formatDateTime(dateString) {
+    if (!dateString) return 'N/A';
+    try {
+        const date = new Date(dateString);
+        return date.toLocaleDateString('en-US', {
+            month: 'short',
+            day: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit'
+        });
+    } catch (e) {
+        return dateString;
+    }
 }
 
 function showError(message) {
-    // You can implement a toast notification or modal here
-    console.error(message);
+    // Could implement a toast notification system here
+    console.error('Dashboard Error:', message);
 }
 </script>
 {% endblock %}

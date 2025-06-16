@@ -114,7 +114,7 @@ class StationAdmin(admin.ModelAdmin):
     
     def incident_count(self, obj):
         count = obj.incident_set.count()
-        url = reverse('admin:your_app_incident_changelist') + f'?station__id__exact={obj.id}'
+        url = reverse('admin:mywebsite_incident_changelist') + f'?station__id__exact={obj.id}'
         return format_html('<a href="{}">{} incidents</a>', url, count)
     incident_count.short_description = 'Incidents'
 

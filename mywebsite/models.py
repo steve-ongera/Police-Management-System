@@ -321,7 +321,8 @@ class Shift(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"{self.officer.full_name} - {self.shift_type} ({self.start_time.date()})"
+       return f"{self.officer.get_full_name()} - {self.shift_type} ({self.start_time.date()})"
+
 
 # Emergency Call Management
 class EmergencyCall(models.Model):
